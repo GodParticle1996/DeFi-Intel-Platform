@@ -1,0 +1,10 @@
+:root { color-scheme: dark; }
+.app { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; }
+aside { background: #11162a; padding: 16px; border-right: 1px solid #222a44; }
+nav { display: flex; flex-direction: column; gap: 8px; }
+a { color: #a8b3d9; text-decoration: none; padding: 8px; border-radius: 8px; }
+a.active { background: #1e2a52; color: white; }
+main { padding: 24px; }
+input, textarea { width: 100%; max-width: 800px; margin: 8px 0; background: #141b35; color: #fff; border: 1px solid #2f3a60; padding: 8px; border-radius: 8px; }
+button { margin: 8px 0 16px; background: #334b9a; color: #fff; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; }
+pre { background: #11162a; border: 1px solid #2a3458; padding: 12px; border-radius: 8px; overflow: auto; }

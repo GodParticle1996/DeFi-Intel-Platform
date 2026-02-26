@@ -1,0 +1,46 @@
+services:
+  mongo:
+    image: mongo:7
+    container_name: defi-intel-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  backend:
+    build:
+      context: ./backend
+    container_name: defi-intel-backend
+    restart: unless-stopped
+    environment:
+      PORT: 3000
+      ALCHEMY_RPC_URL: ${ALCHEMY_RPC_URL:-https://eth.llamarpc.com}
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
+      MONGO_URI: mongodb://mongo:27017
+      MONGO_DB_NAME: defi_intel
+    depends_on:
+      - mongo
+    ports:
+      - "3000:3000"
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: defi-intel-frontend
+    restart: unless-stopped
+    environment:
+      VITE_API_URL: http://localhost:3000
+    depends_on:
+      - backend
+    ports:
+      - "5173:5173"
+
+  hardhat:
+    build:
+      context: ./contracts
+    container_name: defi-intel-hardhat
+    profiles: ["devtools"]
+
+volumes:
+  mongo_data:
